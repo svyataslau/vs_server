@@ -15,8 +15,6 @@ public interface UserRepository {
 
   List<User> findAll();
 
-  List<User> findByPublished(boolean published);
-
   List<User> findByNicknameContaining(String nickname);
 
   int deleteAll();

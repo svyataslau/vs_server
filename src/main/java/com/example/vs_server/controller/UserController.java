@@ -32,6 +32,15 @@ public class UserController {
       return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+  @PostMapping("/users")
+  public ResponseEntity<String> createUser(@RequestBody User user) {
+    try {
+      userRepository.save(new User(user.getNickname(), user.getEmail()));
+      return new ResponseEntity<>("User was created successfully.", HttpStatus.CREATED);
+    } catch (Exception e) {
+      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 
   @GetMapping("/users/{id}")
   public ResponseEntity<User> getUserById(@PathVariable("id") long id) {
@@ -43,23 +52,11 @@ public class UserController {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
   }
-
-  @PostMapping("/users")
-  public ResponseEntity<String> createUser(@RequestBody User user) {
-    try {
-      userRepository.save(new User(user.getNickname(), user.getEmail()));
-      return new ResponseEntity<>("User was created successfully.", HttpStatus.CREATED);
-    } catch (Exception e) {
-      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-  }
-
   @PutMapping("/users/{id}")
   public ResponseEntity<String> updateUser(@PathVariable("id") long id, @RequestBody User user) {
     User _user = userRepository.findById(id);
 
     if (_user != null) {
-      _user.setId(id);
       _user.setNickname(user.getNickname());
       _user.setEmail(user.getEmail());
 
@@ -92,20 +89,6 @@ public class UserController {
       return new ResponseEntity<>("Cannot delete users.", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-  }
-
-  @GetMapping("/users/published")
-  public ResponseEntity<List<User>> findByPublished() {
-    try {
-      List<User> users = userRepository.findByPublished(true);
-
-      if (users.isEmpty()) {
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-      }
-      return new ResponseEntity<>(users, HttpStatus.OK);
-    } catch (Exception e) {
-      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-    }
   }
 
 }
