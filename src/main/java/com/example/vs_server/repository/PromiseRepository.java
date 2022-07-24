@@ -15,8 +15,6 @@ public interface PromiseRepository {
 
   List<Promise> findAll();
 
-  List<Promise> findByPublished(boolean published);
-
   List<Promise> findByTitleContaining(String title);
 
   int deleteAll();

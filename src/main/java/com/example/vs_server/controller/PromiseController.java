@@ -103,18 +103,4 @@ public class PromiseController {
 
   }
 
-  @GetMapping("/promises/published")
-  public ResponseEntity<List<Promise>> findByPublished() {
-    try {
-      List<Promise> promises = promiseRepository.findByPublished(true);
-
-      if (promises.isEmpty()) {
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-      }
-      return new ResponseEntity<>(promises, HttpStatus.OK);
-    } catch (Exception e) {
-      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-  }
-
 }

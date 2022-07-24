@@ -18,13 +18,13 @@ public class JdbcPromiseRepository implements PromiseRepository {
 
   @Override
   public int save(Promise promise) {
-    return jdbcTemplate.update("INSERT INTO default_promise (title, description, published) VALUES(?,?,?)",
+    return jdbcTemplate.update("INSERT INTO default_promise (title) VALUES(?)",
         new Object[] { promise.getTitle()});
   }
 
   @Override
   public int update(Promise promise) {
-    return jdbcTemplate.update("UPDATE default_promise SET title=?, description=?, published=? WHERE id=?",
+    return jdbcTemplate.update("UPDATE default_promise SET title=? WHERE id=?",
         new Object[] { promise.getTitle(), promise.getId() });
   }
 
@@ -48,12 +48,6 @@ public class JdbcPromiseRepository implements PromiseRepository {
   @Override
   public List<Promise> findAll() {
     return jdbcTemplate.query("SELECT * from default_promise", BeanPropertyRowMapper.newInstance(Promise.class));
-  }
-
-  @Override
-  public List<Promise> findByPublished(boolean published) {
-    return jdbcTemplate.query("SELECT * from default_promise WHERE published=?",
-        BeanPropertyRowMapper.newInstance(Promise.class), published);
   }
 
   @Override
