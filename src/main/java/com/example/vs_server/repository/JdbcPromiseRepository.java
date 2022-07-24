@@ -18,20 +18,20 @@ public class JdbcPromiseRepository implements PromiseRepository {
 
   @Override
   public int save(Promise promise) {
-    return jdbcTemplate.update("INSERT INTO default_promise (title) VALUES(?)",
+    return jdbcTemplate.update("INSERT INTO promise (title) VALUES(?)",
         new Object[] { promise.getTitle()});
   }
 
   @Override
   public int update(Promise promise) {
-    return jdbcTemplate.update("UPDATE default_promise SET title=? WHERE id=?",
+    return jdbcTemplate.update("UPDATE promise SET title=? WHERE id=?",
         new Object[] { promise.getTitle(), promise.getId() });
   }
 
   @Override
   public Promise findById(Long id) {
     try {
-      Promise promise = jdbcTemplate.queryForObject("SELECT * FROM default_promise WHERE id=?",
+      Promise promise = jdbcTemplate.queryForObject("SELECT * FROM promise WHERE id=?",
           BeanPropertyRowMapper.newInstance(Promise.class), id);
 
       return promise;
@@ -42,23 +42,23 @@ public class JdbcPromiseRepository implements PromiseRepository {
 
   @Override
   public int deleteById(Long id) {
-    return jdbcTemplate.update("DELETE FROM default_promise WHERE id=?", id);
+    return jdbcTemplate.update("DELETE FROM promise WHERE id=?", id);
   }
 
   @Override
   public List<Promise> findAll() {
-    return jdbcTemplate.query("SELECT * from default_promise", BeanPropertyRowMapper.newInstance(Promise.class));
+    return jdbcTemplate.query("SELECT * from promise", BeanPropertyRowMapper.newInstance(Promise.class));
   }
 
   @Override
   public List<Promise> findByTitleContaining(String title) {
-    String q = "SELECT * from default_promise WHERE title ILIKE '%" + title + "%'";
+    String q = "SELECT * from promise WHERE title ILIKE '%" + title + "%'";
 
     return jdbcTemplate.query(q, BeanPropertyRowMapper.newInstance(Promise.class));
   }
 
   @Override
   public int deleteAll() {
-    return jdbcTemplate.update("DELETE from default_promise");
+    return jdbcTemplate.update("DELETE from promise");
   }
 }
