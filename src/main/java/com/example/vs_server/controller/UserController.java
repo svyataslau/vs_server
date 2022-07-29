@@ -2,7 +2,6 @@ package com.example.vs_server.controller;
 
 import com.example.vs_server.model.User;
 import com.example.vs_server.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +14,19 @@ import java.util.List;
 @RequestMapping("/api")
 public class UserController {
 
-  @Autowired
-  UserRepository userRepository;
+  private UserRepository userRepository;
+
+  UserController(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
+  public UserRepository getUserRepository() {
+    return userRepository;
+  }
 
   @PostMapping("/login")
   public ResponseEntity<User> findUser(@RequestBody User user) {
     try {
-      User foundUser = userRepository.findByEmail(user.getEmail());
+      User foundUser = getUserRepository().findByEmail(user.getEmail());
         if(foundUser != null){
           return new ResponseEntity<>(foundUser, HttpStatus.OK);
         };
@@ -34,7 +39,7 @@ public class UserController {
   @PostMapping("/users")
   public ResponseEntity<String> createUser(@RequestBody User user) {
     try {
-      userRepository.save(new User(user.getNickname(), user.getEmail()));
+      getUserRepository().save(new User(user.getNickname(), user.getEmail()));
       return new ResponseEntity<>("User was created successfully.", HttpStatus.CREATED);
     } catch (Exception e) {
       return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -46,7 +51,7 @@ public class UserController {
     try {
       List<User> users = new ArrayList<User>();
 
-      userRepository.findAll().forEach(users::add);
+      getUserRepository().findAll().forEach(users::add);
 
       if (users.isEmpty()) {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -59,7 +64,7 @@ public class UserController {
 
   @GetMapping("/users/{id}")
   public ResponseEntity<User> getUserById(@PathVariable("id") long id) {
-    User user = userRepository.findById(id);
+    User user = getUserRepository().findById(id);
 
     if (user != null) {
       return new ResponseEntity<>(user, HttpStatus.OK);
@@ -69,7 +74,7 @@ public class UserController {
   }
   @PutMapping("/users/{id}")
   public ResponseEntity<String> updateUser(@PathVariable("id") long id, @RequestBody User user) {
-    User _user = userRepository.findById(id);
+    User _user = getUserRepository().findById(id);
 
     if (_user != null) {
       _user.setNickname(user.getNickname());
@@ -85,7 +90,7 @@ public class UserController {
   @DeleteMapping("/users/{id}")
   public ResponseEntity<String> deleteUser(@PathVariable("id") long id) {
     try {
-      int result = userRepository.deleteById(id);
+      int result = getUserRepository().deleteById(id);
       if (result == 0) {
         return new ResponseEntity<>("Cannot find User with id=" + id, HttpStatus.OK);
       }
@@ -98,7 +103,7 @@ public class UserController {
   @DeleteMapping("/users")
   public ResponseEntity<String> deleteAllUsers() {
     try {
-      int numRows = userRepository.deleteAll();
+      int numRows = getUserRepository().deleteAll();
       return new ResponseEntity<>("Deleted " + numRows + " User(s) successfully.", HttpStatus.OK);
     } catch (Exception e) {
       return new ResponseEntity<>("Cannot delete users.", HttpStatus.INTERNAL_SERVER_ERROR);
