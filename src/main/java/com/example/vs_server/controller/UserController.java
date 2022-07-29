@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.LongToIntFunction;
 
-@CrossOrigin(origins = "http://localhost:8090")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api")
 public class UserController {

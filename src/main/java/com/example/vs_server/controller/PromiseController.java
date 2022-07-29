@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.vs_server.model.Promise;
 import com.example.vs_server.repository.PromiseRepository;
 
-@CrossOrigin(origins = "http://localhost:8090")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api")
 public class PromiseController {
