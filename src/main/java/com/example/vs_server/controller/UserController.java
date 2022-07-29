@@ -9,13 +9,38 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.LongToIntFunction;
 
+@CrossOrigin(origins = "http://localhost:8090")
 @RestController
 @RequestMapping("/api")
 public class UserController {
 
   @Autowired
   UserRepository userRepository;
+
+  @PostMapping("/login")
+  public ResponseEntity<User> findUser(@RequestBody User user) {
+    try {
+      User foundUser = userRepository.findByEmail(user.getEmail());
+        if(foundUser != null){
+          return new ResponseEntity<>(foundUser, HttpStatus.OK);
+        };
+      return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+    } catch (Exception e) {
+      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @PostMapping("/users")
+  public ResponseEntity<String> createUser(@RequestBody User user) {
+    try {
+      userRepository.save(new User(user.getNickname(), user.getEmail()));
+      return new ResponseEntity<>("User was created successfully.", HttpStatus.CREATED);
+    } catch (Exception e) {
+      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 
   @GetMapping("/users")
   public ResponseEntity<List<User>> getAllUsers() {
@@ -28,15 +53,6 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
       }
       return new ResponseEntity<>(users, HttpStatus.OK);
-    } catch (Exception e) {
-      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-  }
-  @PostMapping("/users")
-  public ResponseEntity<String> createUser(@RequestBody User user) {
-    try {
-      userRepository.save(new User(user.getNickname(), user.getEmail()));
-      return new ResponseEntity<>("User was created successfully.", HttpStatus.CREATED);
     } catch (Exception e) {
       return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }

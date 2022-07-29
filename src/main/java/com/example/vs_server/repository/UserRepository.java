@@ -15,7 +15,7 @@ public interface UserRepository {
 
   List<User> findAll();
 
-  List<User> findByNicknameContaining(String nickname);
+  User findByEmail(String email);
 
   int deleteAll();
 }

@@ -50,10 +50,13 @@ public class JdbcUserRepository implements UserRepository {
   }
 
   @Override
-  public List<User> findByNicknameContaining(String nickname) {
-    String q = "SELECT * from user_profile WHERE title ILIKE '%" + nickname + "%'";
-
-    return jdbcTemplate.query(q, BeanPropertyRowMapper.newInstance(User.class));
+  public User findByEmail(String email) {
+    try {
+      User user = jdbcTemplate.queryForObject("SELECT * FROM user_profile WHERE email=?", BeanPropertyRowMapper.newInstance(User.class), email);
+      return user;
+    } catch (IncorrectResultSizeDataAccessException e) {
+      return null;
+    }
   }
 
   @Override

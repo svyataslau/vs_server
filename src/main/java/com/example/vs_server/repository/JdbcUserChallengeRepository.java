@@ -17,13 +17,13 @@ public class JdbcUserChallengeRepository implements UserChallengeRepository {
 
   @Override
   public int save(UserChallenge userChallenge) {
-    return jdbcTemplate.update("INSERT INTO user_challenge (user_id, promise_id, description, start_date, days_number) VALUES(?,?,?,?,?)",
+    return jdbcTemplate.update("INSERT INTO user_challenge (user_id, promise_id, description, to_timestamp(start_date), days_number) VALUES(?,?,?,?,?)",
         new Object[] { userChallenge.getUserId(), userChallenge.getPromiseId(), userChallenge.getDescription(), userChallenge.getStartDate(), userChallenge.getDaysNumber()});
   }
 
   @Override
   public int update(UserChallenge userChallenge) {
-    return jdbcTemplate.update("UPDATE user_challenge SET user_id=?, promise_id=?, description=?, start_date=?, days_number=? WHERE id=?",
+    return jdbcTemplate.update("UPDATE user_challenge SET user_id=?, promise_id=?, description=?, to_timestamp(start_date)=?, days_number=? WHERE id=?",
         new Object[] { userChallenge.getUserId(), userChallenge.getPromiseId(), userChallenge.getDescription(), userChallenge.getStartDate(), userChallenge.getDaysNumber(), userChallenge.getId() });
   }
 
