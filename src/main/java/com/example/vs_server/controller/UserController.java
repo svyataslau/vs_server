@@ -37,10 +37,10 @@ public class UserController {
   }
 
   @PostMapping("/users")
-  public ResponseEntity<String> createUser(@RequestBody User user) {
+  public ResponseEntity<Integer> createUser(@RequestBody User user) {
     try {
-      getUserRepository().save(new User(user.getNickname(), user.getEmail()));
-      return new ResponseEntity<>("User was created successfully.", HttpStatus.CREATED);
+      int id = getUserRepository().save(new User(user.getNickname(), user.getEmail()));
+      return new ResponseEntity<>(id, HttpStatus.CREATED);
     } catch (Exception e) {
       return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }

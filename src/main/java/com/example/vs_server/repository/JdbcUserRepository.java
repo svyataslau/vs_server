@@ -5,8 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Types;
+import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -17,8 +23,23 @@ public class JdbcUserRepository implements UserRepository {
 
   @Override
   public int save(User user) {
-    return jdbcTemplate.update("INSERT INTO user_profile (nickname, email) VALUES(?,?)",
-        new Object[] { user.getNickname(), user.getEmail()});
+    final String SQL_INSERT_QUERY = "INSERT INTO user_profile (nickname, email) VALUES(?,?)";
+
+    PreparedStatementCreatorFactory pscf = new PreparedStatementCreatorFactory(
+            SQL_INSERT_QUERY, Types.VARCHAR, Types.VARCHAR
+    );
+    pscf.setReturnGeneratedKeys(true);
+    pscf.setGeneratedKeysColumnNames("id");
+
+    PreparedStatementCreator psc = pscf.newPreparedStatementCreator(
+            Arrays.asList(user.getNickname(), user.getEmail())
+    );
+
+    KeyHolder keyHolder = new GeneratedKeyHolder();
+    jdbcTemplate.update(psc, keyHolder);
+
+    int id = (int) keyHolder.getKey();
+    return id;
   }
 
   @Override
