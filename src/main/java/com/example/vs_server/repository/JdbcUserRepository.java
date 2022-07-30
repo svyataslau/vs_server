@@ -1,7 +1,6 @@
 package com.example.vs_server.repository;
 
 import com.example.vs_server.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,8 +17,11 @@ import java.util.List;
 @Repository
 public class JdbcUserRepository implements UserRepository {
 
-  @Autowired
-  private JdbcTemplate jdbcTemplate;
+  public JdbcTemplate jdbcTemplate;
+
+  JdbcUserRepository(JdbcTemplate jdbcTemplate) {
+    this.jdbcTemplate = jdbcTemplate;
+  }
 
   @Override
   public int save(User user) {

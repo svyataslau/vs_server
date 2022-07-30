@@ -1,7 +1,6 @@
 package com.example.vs_server.repository;
 
 import com.example.vs_server.model.UserChallenge;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,8 +11,11 @@ import java.util.List;
 @Repository
 public class JdbcUserChallengeRepository implements UserChallengeRepository {
 
-  @Autowired
-  private JdbcTemplate jdbcTemplate;
+  public JdbcTemplate jdbcTemplate;
+
+  JdbcUserChallengeRepository(JdbcTemplate jdbcTemplate) {
+    this.jdbcTemplate = jdbcTemplate;
+  }
 
   @Override
   public int save(UserChallenge userChallenge) {

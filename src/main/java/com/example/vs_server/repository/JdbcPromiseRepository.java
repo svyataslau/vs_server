@@ -2,7 +2,6 @@ package com.example.vs_server.repository;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,8 +12,11 @@ import com.example.vs_server.model.Promise;
 @Repository
 public class JdbcPromiseRepository implements PromiseRepository {
 
-  @Autowired
-  private JdbcTemplate jdbcTemplate;
+  public JdbcTemplate jdbcTemplate;
+
+  JdbcPromiseRepository(JdbcTemplate jdbcTemplate) {
+    this.jdbcTemplate = jdbcTemplate;
+  }
 
   @Override
   public int save(Promise promise) {
