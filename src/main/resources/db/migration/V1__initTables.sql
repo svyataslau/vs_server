@@ -15,7 +15,6 @@ CREATE TABLE user_challenge (
                                 id SERIAL,
                                 user_id INTEGER REFERENCES  user_profile(id) ON DELETE  CASCADE,
                                 promise_id INTEGER REFERENCES  promise(id) ON DELETE  CASCADE,
-                                description VARCHAR(128),
                                 start_date TIMESTAMP NOT NULL,
                                 days_number INTEGER NOT NULL,
                                 PRIMARY KEY (id)
@@ -38,7 +37,12 @@ INSERT INTO promise (title) VALUES ('Get a new ability');
 INSERT INTO promise (title) VALUES ('Learn something new');
 INSERT INTO promise (title) VALUES ('Lose weight');
 
-INSERT INTO user_challenge (user_id, promise_id, description, start_date, days_number) VALUES (1,3,'I want to learn java & spring', '2019-02-15 10:32:02', 30);
-INSERT INTO user_challenge (user_id, promise_id, description, start_date, days_number) VALUES (2,4,'I have to lose 20 kg', '2019-02-15 10:54:02', 60);
-INSERT INTO user_challenge (user_id, promise_id, description, start_date, days_number) VALUES (3,3,'I want to read a book about front-end 50 pages a day', '2019-02-15 10:43:02', 30);
-INSERT INTO user_challenge (user_id, promise_id, description, start_date, days_number) VALUES (4,2,'learn how to swim', '2019-02-15 10:55:02', 20);
+INSERT INTO user_challenge (user_id, promise_id, start_date, days_number) VALUES (1,3,'2019-02-15 10:32:02', 30);
+INSERT INTO user_challenge (user_id, promise_id, start_date, days_number) VALUES (2,4,'2019-02-15 10:54:02', 60);
+INSERT INTO user_challenge (user_id, promise_id, start_date, days_number) VALUES (3,3,'2019-02-15 10:43:02', 30);
+INSERT INTO user_challenge (user_id, promise_id, start_date, days_number) VALUES (4,2,'2019-02-15 10:55:02', 20);
+
+INSERT INTO reason (user_challenge_id, description) VALUES (1,'I want to learn java & spring');
+INSERT INTO reason (user_challenge_id, description) VALUES (2,'I have to lose 20 kg');
+INSERT INTO reason (user_challenge_id, description) VALUES (3,'I want to read a book about front-end 50 pages a day');
+INSERT INTO reason (user_challenge_id, description) VALUES (4,'learn how to swim');
