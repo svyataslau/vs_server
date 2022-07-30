@@ -19,7 +19,7 @@ public class JdbcUserRepository implements UserRepository {
 
   public JdbcTemplate jdbcTemplate;
 
-  JdbcUserRepository(JdbcTemplate jdbcTemplate) {
+  public JdbcUserRepository(JdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
   }
 

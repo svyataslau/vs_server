@@ -13,7 +13,7 @@ public class JdbcUserChallengeRepository implements UserChallengeRepository {
 
   public JdbcTemplate jdbcTemplate;
 
-  JdbcUserChallengeRepository(JdbcTemplate jdbcTemplate) {
+  public JdbcUserChallengeRepository(JdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
   }
 

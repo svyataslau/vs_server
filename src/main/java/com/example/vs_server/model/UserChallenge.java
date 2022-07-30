@@ -83,9 +83,4 @@ public class UserChallenge {
     this.daysNumber = daysNumber;
   }
 
-  @Override
-  public String toString() {
-    return "Promise [id=" + id + ", userId=" + startDate + ", promiseId=" + startDate + ", description=" + description  + ", startDate=" + startDate + ", daysNumber=" + daysNumber + "]";
-  }
-
 }

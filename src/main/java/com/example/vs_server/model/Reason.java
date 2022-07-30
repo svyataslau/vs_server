@@ -48,9 +48,4 @@ public class Reason {
     this.description = description;
   }
 
-  @Override
-  public String toString() {
-    return "Reason [id=" + id + ", userChallengeId=" + userChallengeId  + ", description=" + description  + "]";
-  }
-
 }

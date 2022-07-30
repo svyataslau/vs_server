@@ -34,9 +34,4 @@ public class Promise {
     this.title = title;
   }
 
-  @Override
-  public String toString() {
-    return "Promise [id=" + id + ", title=" + title  + "]";
-  }
-
 }

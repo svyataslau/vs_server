@@ -13,7 +13,7 @@ public class JdbcReasonRepository implements ReasonRepository {
 
   public JdbcTemplate jdbcTemplate;
 
-  JdbcReasonRepository(JdbcTemplate jdbcTemplate) {
+  public JdbcReasonRepository(JdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
   }
 

@@ -17,18 +17,13 @@ public class PromiseController {
 
   private PromiseRepository promiseRepository;
 
-  PromiseController(PromiseRepository promiseRepository) {
+  public PromiseController(PromiseRepository promiseRepository) {
     this.promiseRepository = promiseRepository;
-  }
-  public PromiseRepository getPromiseRepository() {
-    return promiseRepository;
   }
   @GetMapping("/promises")
   public ResponseEntity<List<Promise>> getAllPromises() {
     try {
-      List<Promise> promises = new ArrayList<Promise>();
-
-      getPromiseRepository().findAll().forEach(promises::add);
+      List<Promise> promises = new ArrayList<>(promiseRepository.findAll());
 
       if (promises.isEmpty()) {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -41,7 +36,7 @@ public class PromiseController {
 
   @GetMapping("/promises/{id}")
   public ResponseEntity<Promise> getPromiseById(@PathVariable("id") long id) {
-    Promise promise = getPromiseRepository().findById(id);
+    Promise promise = promiseRepository.findById(id);
 
     if (promise != null) {
       return new ResponseEntity<>(promise, HttpStatus.OK);
@@ -53,7 +48,7 @@ public class PromiseController {
   @PostMapping("/promises")
   public ResponseEntity<String> createPromise(@RequestBody Promise promise) {
     try {
-      getPromiseRepository().save(new Promise(promise.getTitle()));
+      promiseRepository.save(new Promise(promise.getTitle()));
       return new ResponseEntity<>("Promise was created successfully.", HttpStatus.CREATED);
     } catch (Exception e) {
       return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -62,13 +57,13 @@ public class PromiseController {
 
   @PutMapping("/promises/{id}")
   public ResponseEntity<String> updatePromise(@PathVariable("id") long id, @RequestBody Promise promise) {
-    Promise _promise = getPromiseRepository().findById(id);
+    Promise _promise = promiseRepository.findById(id);
 
     if (_promise != null) {
       _promise.setId(id);
       _promise.setTitle(promise.getTitle());
 
-      getPromiseRepository().update(_promise);
+      promiseRepository.update(_promise);
       return new ResponseEntity<>("Promise was updated successfully.", HttpStatus.OK);
     } else {
       return new ResponseEntity<>("Cannot find Promise with id=" + id, HttpStatus.NOT_FOUND);
@@ -78,7 +73,7 @@ public class PromiseController {
   @DeleteMapping("/promises/{id}")
   public ResponseEntity<String> deletePromise(@PathVariable("id") long id) {
     try {
-      int result = getPromiseRepository().deleteById(id);
+      int result = promiseRepository.deleteById(id);
       if (result == 0) {
         return new ResponseEntity<>("Cannot find Promise with id=" + id, HttpStatus.OK);
       }
@@ -91,7 +86,7 @@ public class PromiseController {
   @DeleteMapping("/promises")
   public ResponseEntity<String> deleteAllPromises() {
     try {
-      int numRows = getPromiseRepository().deleteAll();
+      int numRows = promiseRepository.deleteAll();
       return new ResponseEntity<>("Deleted " + numRows + " Promise(s) successfully.", HttpStatus.OK);
     } catch (Exception e) {
       return new ResponseEntity<>("Cannot delete promises.", HttpStatus.INTERNAL_SERVER_ERROR);

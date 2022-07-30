@@ -16,18 +16,15 @@ public class ReasonController {
 
   private ReasonRepository reasonRepository;
 
-  ReasonController(ReasonRepository reasonRepository) {
+  public ReasonController(ReasonRepository reasonRepository) {
     this.reasonRepository = reasonRepository;
-  }
-  public ReasonRepository getReasonRepository() {
-    return reasonRepository;
   }
   @GetMapping("/reasons")
   public ResponseEntity<List<Reason>> getAllReasons() {
     try {
       List<Reason> reasons = new ArrayList<Reason>();
 
-      getReasonRepository().findAll().forEach(reasons::add);
+      reasonRepository.findAll().forEach(reasons::add);
 
       if (reasons.isEmpty()) {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -40,7 +37,7 @@ public class ReasonController {
 
   @GetMapping("/reasons/{id}")
   public ResponseEntity<Reason> getReasonById(@PathVariable("id") long id) {
-    Reason reason = getReasonRepository().findById(id);
+    Reason reason = reasonRepository.findById(id);
 
     if (reason != null) {
       return new ResponseEntity<>(reason, HttpStatus.OK);
@@ -52,7 +49,7 @@ public class ReasonController {
   @PostMapping("/reasons")
   public ResponseEntity<String> createReason(@RequestBody Reason reason) {
     try {
-      getReasonRepository().save(new Reason(reason.getUserChallengeId(), reason.getDescription()));
+      reasonRepository.save(new Reason(reason.getUserChallengeId(), reason.getDescription()));
       return new ResponseEntity<>("Reason was created successfully.", HttpStatus.CREATED);
     } catch (Exception e) {
       return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -61,14 +58,14 @@ public class ReasonController {
 
   @PutMapping("/reasons/{id}")
   public ResponseEntity<String> updateReason(@PathVariable("id") long id, @RequestBody Reason reason) {
-    Reason _reason = getReasonRepository().findById(id);
+    Reason _reason = reasonRepository.findById(id);
 
     if (_reason != null) {
       _reason.setId(id);
       _reason.setUserChallengeId(reason.getUserChallengeId());
       _reason.setDescription(reason.getDescription());
 
-      getReasonRepository().update(_reason);
+      reasonRepository.update(_reason);
       return new ResponseEntity<>("Reason was updated successfully.", HttpStatus.OK);
     } else {
       return new ResponseEntity<>("Cannot find Reason with id=" + id, HttpStatus.NOT_FOUND);
@@ -78,7 +75,7 @@ public class ReasonController {
   @DeleteMapping("/reasons/{id}")
   public ResponseEntity<String> deleteReason(@PathVariable("id") long id) {
     try {
-      int result = getReasonRepository().deleteById(id);
+      int result = reasonRepository.deleteById(id);
       if (result == 0) {
         return new ResponseEntity<>("Cannot find Reason with id=" + id, HttpStatus.OK);
       }
@@ -91,7 +88,7 @@ public class ReasonController {
   @DeleteMapping("/reasons")
   public ResponseEntity<String> deleteAllReasons() {
     try {
-      int numRows = getReasonRepository().deleteAll();
+      int numRows = reasonRepository.deleteAll();
       return new ResponseEntity<>("Deleted " + numRows + " Reason(s) successfully.", HttpStatus.OK);
     } catch (Exception e) {
       return new ResponseEntity<>("Cannot delete reasons.", HttpStatus.INTERNAL_SERVER_ERROR);

@@ -14,7 +14,7 @@ public class JdbcPromiseRepository implements PromiseRepository {
 
   public JdbcTemplate jdbcTemplate;
 
-  JdbcPromiseRepository(JdbcTemplate jdbcTemplate) {
+  public JdbcPromiseRepository(JdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
   }
 
