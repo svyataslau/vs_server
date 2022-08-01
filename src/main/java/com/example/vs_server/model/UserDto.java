@@ -1,22 +1,22 @@
 package com.example.vs_server.model;
 
-public class User {
+public class UserDto {
 
   private long id;
   private String nickname;
   private String email;
   private String password;
 
-  public User() {
+  public UserDto() {
   }
 
-  public User(String nickname, String email, String password) {
+  public UserDto(String nickname, String email, String password) {
     this.nickname = nickname;
     this.email = email;
     this.password = password;
   }
 
-  public User(long id, String nickname, String email, String password) {
+  public UserDto(long id, String nickname, String email, String password) {
     this.id = id;
     this.nickname = nickname;
     this.email = email;
