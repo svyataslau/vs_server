@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-public class UserController {
+public class UserController implements UserControllerInterface{
 
   private UserService userService;
 

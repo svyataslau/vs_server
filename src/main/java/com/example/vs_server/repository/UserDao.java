@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserDao {
+public class UserDao implements UserDaoInterface{
 
   public JdbcTemplate jdbcTemplate;
 
@@ -14,9 +14,9 @@ public class UserDao {
     this.jdbcTemplate = jdbcTemplate;
   }
 
-  public UserDto getUser(UserDto userServer) {
+  public UserDto getUser(UserDto userDto) {
     return jdbcTemplate.queryForObject("SELECT * FROM user_profile WHERE email=? AND password =?",
-            BeanPropertyRowMapper.newInstance(UserDto.class), userServer.getEmail(), userServer.getPassword());
+            BeanPropertyRowMapper.newInstance(UserDto.class), userDto.getEmail(), userDto.getPassword());
   }
 
 }
