@@ -2,7 +2,9 @@ package com.example.vs_server.converter;
 
 import com.example.vs_server.model.User;
 import com.example.vs_server.model.UserDto;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserConverter extends Converter<UserDto, User> {
 
     public UserConverter() {

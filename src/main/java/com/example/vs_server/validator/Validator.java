@@ -1,5 +1,6 @@
 package com.example.vs_server.validator;
 
-public interface ValidatorInterface<T> {
+public interface Validator<T> {
     boolean validate(T t);
+
 }
