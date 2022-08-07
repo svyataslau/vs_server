@@ -5,16 +5,16 @@ import com.example.vs_server.response.ResponseFactoryImpl;
 import com.example.vs_server.service.UserServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@Api(value = "/", description = "Endpoints for user entity", produces = "application/json")
+@Api(tags = "User", description = "Endpoints for user entity", produces = "application/json")
 @RestController
-@RequestMapping("")
 public class UserControllerImpl implements UserController {
 
     private final UserServiceImpl userService;
@@ -25,10 +25,11 @@ public class UserControllerImpl implements UserController {
         this.responseFactory = responseFactory;
     }
 
-    @ApiOperation(value = "Login to user profile", response = Object.class, tags = "loginUser", httpMethod = "POST")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success|OK"),
-            @ApiResponse(code = 401, message = "not authorized!")})
+    @ApiOperation(
+            value = "Login to user profile",
+            response = Object.class,
+            httpMethod = "POST"
+    )
     @Override
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody User user) {
