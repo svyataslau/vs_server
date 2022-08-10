@@ -1,8 +1,8 @@
 package com.example.vs_server.controller;
 
 import com.example.vs_server.model.User;
-import com.example.vs_server.response.ResponseFactoryImpl;
-import com.example.vs_server.service.UserServiceImpl;
+import com.example.vs_server.response.ResponseFactory;
+import com.example.vs_server.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserControllerImpl implements UserController {
 
-    private final UserServiceImpl userService;
-    private final ResponseFactoryImpl responseFactory;
+    private final UserService userService;
+    private final ResponseFactory responseFactory;
 
-    public UserControllerImpl(UserServiceImpl userService, ResponseFactoryImpl responseFactory) {
+    public UserControllerImpl(UserService userService, ResponseFactory responseFactory) {
         this.userService = userService;
         this.responseFactory = responseFactory;
     }
@@ -31,7 +31,7 @@ public class UserControllerImpl implements UserController {
             httpMethod = "POST"
     )
     @Override
-    @PostMapping("/login")
+    @PostMapping("/user/login")
     public ResponseEntity<Object> login(@RequestBody User user) {
         return responseFactory.generateResponse("Successfully logged in!", HttpStatus.OK, userService.login(user));
     }

@@ -15,7 +15,6 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-//                .paths(regex("/.*"))
                 .apis(RequestHandlerSelectors.basePackage("com.example.vs_server.controller"))
                 .build();
     }

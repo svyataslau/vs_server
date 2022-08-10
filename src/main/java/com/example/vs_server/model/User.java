@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class User {
 
     @ApiModelProperty(notes = "Database id of the User", name = "id")
-    private long id;
+    private Long id;
     @ApiModelProperty(notes = "Nickname of the User", name = "nickname", value = "jonny3248359253")
     private String nickname;
     @ApiModelProperty(notes = "Email of the User", name = "email", required = true, value = "letsgo763@gmail.com")
@@ -22,18 +22,18 @@ public class User {
         this.password = password;
     }
 
-    public User(long id, String nickname, String email, String password) {
+    public User(Long id, String nickname, String email, String password) {
         this.id = id;
         this.nickname = nickname;
         this.email = email;
         this.password = password;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

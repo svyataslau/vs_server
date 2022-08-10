@@ -1,33 +1,22 @@
 package com.example.vs_server.converter;
 
-import java.util.Collection;
-import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class Converter<T, U> {
 
-    private final Function<T, U> fromDto;
-    private final Function<U, T> fromEntity;
+    private final Function<T, U> convertToEntity;
+    private final Function<U, T> convertToDto;
 
-    public Converter(final Function<T, U> fromDto, final Function<U, T> fromEntity) {
-        this.fromDto = fromDto;
-        this.fromEntity = fromEntity;
+    public Converter(Function<T, U> convertToEntity, Function<U, T> convertToDto) {
+        this.convertToEntity = convertToEntity;
+        this.convertToDto = convertToDto;
     }
 
     public final U convertFromDto(final T dto) {
-        return fromDto.apply(dto);
+        return convertToEntity.apply(dto);
     }
 
     public final T convertFromEntity(final U entity) {
-        return fromEntity.apply(entity);
-    }
-
-    public final List<U> createFromDtos(final Collection<T> dtos) {
-        return dtos.stream().map(this::convertFromDto).collect(Collectors.toList());
-    }
-
-    public final List<T> createFromEntities(final Collection<U> entities) {
-        return entities.stream().map(this::convertFromEntity).collect(Collectors.toList());
+        return convertToDto.apply(entity);
     }
 }
