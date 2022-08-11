@@ -16,18 +16,8 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler(InvalidEmailException.class)
-    public ResponseEntity<String> handleInvalidEmailException(InvalidEmailException exception) {
-        return responseFactory.generateResponse(exception.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(InvalidPasswordException.class)
-    public ResponseEntity<String> handleInvalidPasswordException(InvalidPasswordException exception) {
-        return responseFactory.generateResponse(exception.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(InvalidNicknameException.class)
-    public ResponseEntity<String> handleInvalidNicknameException(InvalidNicknameException exception) {
+    @ExceptionHandler(InvalidFieldException.class)
+    public ResponseEntity<String> handleInvalidFieldException(InvalidFieldException exception) {
         return responseFactory.generateResponse(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
