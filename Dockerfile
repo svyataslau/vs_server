@@ -1,0 +1,4 @@
+FROM postgres
+ENV POSTGRES_USER someuser
+ENV POSTGRES_PASSWORD somepassword
+ENV POSTGRES_DB somedb
