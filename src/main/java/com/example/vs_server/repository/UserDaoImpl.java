@@ -8,15 +8,22 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class UserDaoImpl implements UserDao {
 
-  public final JdbcTemplate jdbcTemplate;
+    public final JdbcTemplate jdbcTemplate;
 
-  public UserDaoImpl(JdbcTemplate jdbcTemplate) {
-    this.jdbcTemplate = jdbcTemplate;
-  }
+    public UserDaoImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
-  public UserDto getUser(UserDto userDto) {
-    return jdbcTemplate.queryForObject("SELECT * FROM user_profile WHERE email=? AND password =?",
-            BeanPropertyRowMapper.newInstance(UserDto.class), userDto.getEmail(), userDto.getPassword());
-  }
+    public UserDto getUser(UserDto userDto) {
+        return jdbcTemplate.queryForObject("SELECT * FROM user_profile WHERE email=? AND password =?",
+                BeanPropertyRowMapper.newInstance(UserDto.class), userDto.getEmail(), userDto.getPassword());
+    }
 
+    public UserDto save(UserDto userDto) {
+        jdbcTemplate.update("INSERT INTO user_profile (nickname, email, password) VALUES(?,?,?)",
+                new Object[]{userDto.getNickname(), userDto.getEmail(), userDto.getPassword()});
+
+        return jdbcTemplate.queryForObject("SELECT * FROM user_profile WHERE email=? AND password =?",
+                BeanPropertyRowMapper.newInstance(UserDto.class), userDto.getEmail(), userDto.getPassword());
+    }
 }

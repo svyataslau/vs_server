@@ -8,7 +8,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,9 +30,13 @@ public class UserControllerImpl implements UserController {
             httpMethod = "POST"
     )
     @Override
-    @PostMapping("/user/login")
     public ResponseEntity<Object> login(@RequestBody User user) {
         return responseFactory.generateResponse("Successfully logged in!", HttpStatus.OK, userService.login(user));
+    }
+
+    @Override
+    public ResponseEntity<Object> register(@RequestBody User user) {
+        return responseFactory.generateResponse("User was created successfully.", HttpStatus.CREATED, userService.create(user));
     }
 
 }

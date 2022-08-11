@@ -10,4 +10,6 @@ public interface UserValidator {
     boolean isValidNickname(String nickname);
 
     boolean validateEmailPassword(User user);
+
+    boolean validate(User user);
 }

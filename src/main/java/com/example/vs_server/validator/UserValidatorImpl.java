@@ -1,7 +1,6 @@
 package com.example.vs_server.validator;
 
-import com.example.vs_server.exception.InvalidEmailException;
-import com.example.vs_server.exception.InvalidPasswordException;
+import com.example.vs_server.exception.InvalidFieldException;
 import com.example.vs_server.model.User;
 import org.springframework.stereotype.Component;
 
@@ -33,7 +32,7 @@ public class UserValidatorImpl implements Validator<User>, UserValidator {
     @Override
     public boolean isValidNickname(String nickname) {
         if (nickname != null) {
-            return Pattern.compile("^[a-z0-9](?:[-_\\.]?[a-z0-9])*$")
+            return Pattern.compile("^[a-zA-Z0-9](?:[-_\\.]?[a-zA-Z0-9])*$")
                     .matcher(nickname)
                     .matches();
         }
@@ -45,22 +44,22 @@ public class UserValidatorImpl implements Validator<User>, UserValidator {
         boolean isValidEmail = isValidEmail(user.getEmail());
         boolean isValidPassword = isValidPassword(user.getPassword());
         if (!isValidEmail) {
-            throw new InvalidEmailException("Invalid email!");
+            throw new InvalidFieldException("Invalid email!");
         }
         if (!isValidPassword) {
-            throw new InvalidPasswordException("Invalid password!");
+            throw new InvalidFieldException("Invalid password!");
         }
         return true;
     }
 
     @Override
     public boolean validate(User user) {
-        if (isValidEmail(user.getEmail()) &&
-                isValidPassword(user.getPassword()) &&
-                isValidNickname(user.getNickname())) {
-            return true;
+        validateEmailPassword(user);
+        boolean isValidNickname = isValidNickname(user.getNickname());
+        if (!isValidNickname) {
+            throw new InvalidFieldException("Invalid nickname!");
         }
-        return false;
+        return true;
     }
 
 
