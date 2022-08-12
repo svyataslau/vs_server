@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 public class UserConverter extends Converter<UserDto, User> {
 
     public UserConverter() {
-        super(UserConverter::convertToEntity, UserConverter::convertToDto);
+        super(UserConverter::convertToEntity);
     }
 
-    private static User convertToEntity(UserDto dto) {
+    public static User convertToEntity(UserDto dto) {
         return new User(dto.getId(), dto.getNickname(), dto.getEmail(), dto.getPassword());
     }
 
-    private static UserDto convertToDto(User user) {
+    public static UserDto convertToDto(User user) {
         return new UserDto(user.getNickname(), user.getEmail(), user.getPassword());
     }
 

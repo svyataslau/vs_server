@@ -39,4 +39,9 @@ public class UserControllerImpl implements UserController {
         return responseFactory.generateResponse("User was created successfully.", HttpStatus.CREATED, userService.create(user));
     }
 
+    @Override
+    public ResponseEntity<Object> getAllUsers() {
+        return responseFactory.generateResponse("All users received.", HttpStatus.OK, userService.getAllUsers());
+    }
+
 }

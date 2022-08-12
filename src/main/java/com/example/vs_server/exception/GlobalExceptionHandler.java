@@ -27,8 +27,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(CustomServerException.class)
-    public ResponseEntity<String> handleException(CustomServerException exception) {
-        return responseFactory.generateResponse(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<String> handleException() {
+        return responseFactory.generateResponse("Something has gone wrong...", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

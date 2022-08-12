@@ -11,6 +11,8 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -27,15 +29,15 @@ public class UserServiceImpl implements UserService {
     public User login(User user) {
         if (userValidator.validateEmailPassword(user)) {
             try {
-                UserDto userDto = userConverter.convertFromEntity(user);
-                return userConverter.convertFromDto(userDao.getUser(userDto));
+                UserDto userDto = userConverter.convertToDto(user);
+                return userConverter.convertToEntity(userDao.getUser(userDto));
             } catch (EmptyResultDataAccessException e) {
                 throw new UnauthorizedException("There is no user with such email & password in the database. Please check the correctness of the entered data...");
             } catch (NullPointerException e) {
                 throw new UnauthorizedException("There is no user with such email & password in the database. Please check the correctness of the entered data...");
             } catch (Exception e) {
                 System.out.println(e);
-                throw new CustomServerException("Something has gone wrong...");
+                throw new CustomServerException();
             }
         }
         return null;
@@ -44,14 +46,22 @@ public class UserServiceImpl implements UserService {
     public User create(User user) {
         if (userValidator.validate(user)) {
             try {
-                UserDto userDto = userConverter.convertFromEntity(user);
-                return userConverter.convertFromDto(userDao.save(userDto));
+                UserDto userDto = userConverter.convertToDto(user);
+                return userConverter.convertToEntity(userDao.save(userDto));
             } catch (DuplicateKeyException e) {
                 throw new UnauthorizedException("This user already registered. Try to login...");
             } catch (Exception e) {
-                throw new CustomServerException("Something has gone wrong...");
+                throw new CustomServerException();
             }
         }
         return null;
+    }
+
+    public List<User> getAllUsers() {
+        try {
+            return userConverter.convertToEntities(userDao.findAll());
+        } catch (Exception e) {
+            throw new CustomServerException();
+        }
     }
 }

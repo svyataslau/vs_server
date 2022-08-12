@@ -5,6 +5,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class UserDaoImpl implements UserDao {
 
@@ -25,5 +27,9 @@ public class UserDaoImpl implements UserDao {
 
         return jdbcTemplate.queryForObject("SELECT * FROM user_profile WHERE email=? AND password =?",
                 BeanPropertyRowMapper.newInstance(UserDto.class), userDto.getEmail(), userDto.getPassword());
+    }
+
+    public List<UserDto> findAll() {
+        return jdbcTemplate.query("SELECT * from user_profile", BeanPropertyRowMapper.newInstance(UserDto.class));
     }
 }
