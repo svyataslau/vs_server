@@ -9,5 +9,5 @@ public interface UserDao {
 
     UserDto save(UserDto userDto);
 
-    List<UserDto> findAll() throws Exception;
+    List<UserDto> findAll();
 }
