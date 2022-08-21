@@ -3,6 +3,7 @@ package com.example.vs_server.controller;
 import com.example.vs_server.model.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 public interface UserController {
@@ -14,4 +15,7 @@ public interface UserController {
 
     @GetMapping("/users")
     ResponseEntity<Object> getAllUsers();
+
+    @GetMapping("/users/{id}")
+    ResponseEntity<Object> getUserById(@PathVariable("id") long id);
 }

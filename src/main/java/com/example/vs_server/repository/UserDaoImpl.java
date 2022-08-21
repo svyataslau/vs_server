@@ -25,11 +25,16 @@ public class UserDaoImpl implements UserDao {
         jdbcTemplate.update("INSERT INTO user_profile (nickname, email, password) VALUES(?,?,?)",
                 new Object[]{userDto.getNickname(), userDto.getEmail(), userDto.getPassword()});
 
-        return jdbcTemplate.queryForObject("SELECT * FROM user_profile WHERE email=? AND password =?",
-                BeanPropertyRowMapper.newInstance(UserDto.class), userDto.getEmail(), userDto.getPassword());
+        return jdbcTemplate.queryForObject("SELECT * FROM user_profile WHERE email=?",
+                BeanPropertyRowMapper.newInstance(UserDto.class), userDto.getEmail());
     }
 
     public List<UserDto> findAll() {
         return jdbcTemplate.query("SELECT * from user_profile", BeanPropertyRowMapper.newInstance(UserDto.class));
+    }
+
+    public UserDto findById(long id) {
+        return jdbcTemplate.queryForObject("SELECT * FROM user_profile WHERE id=?",
+                BeanPropertyRowMapper.newInstance(UserDto.class), id);
     }
 }

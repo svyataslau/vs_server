@@ -10,4 +10,6 @@ public interface UserDao {
     UserDto save(UserDto userDto);
 
     List<UserDto> findAll();
+
+    UserDto findById(long id);
 }

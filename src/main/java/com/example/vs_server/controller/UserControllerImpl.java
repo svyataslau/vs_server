@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,6 +43,11 @@ public class UserControllerImpl implements UserController {
     @Override
     public ResponseEntity<Object> getAllUsers() {
         return responseFactory.generateResponse("All users received.", HttpStatus.OK, userService.getAllUsers());
+    }
+
+    @Override
+    public ResponseEntity<Object> getUserById(@PathVariable("id") long id) {
+        return responseFactory.generateResponse("User received.", HttpStatus.OK, userService.getUserById(id));
     }
 
 }

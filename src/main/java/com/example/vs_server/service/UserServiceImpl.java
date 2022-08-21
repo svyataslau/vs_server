@@ -64,4 +64,12 @@ public class UserServiceImpl implements UserService {
             throw new CustomServerException();
         }
     }
+
+    public User getUserById(long id) {
+        try {
+            return userConverter.convertToEntity(userDao.findById(id));
+        } catch (Exception e) {
+            throw new CustomServerException();
+        }
+    }
 }
