@@ -28,7 +28,7 @@ CREATE TABLE reason
 (
     id                SERIAL,
     user_challenge_id INTEGER REFERENCES user_challenge (id) ON DELETE CASCADE,
-    description       VARCHAR(128),
+    description       VARCHAR(2048),
     PRIMARY KEY (id)
 );
 
@@ -51,35 +51,42 @@ INSERT INTO promise (title)
 VALUES ('Lose weight');
 
 INSERT INTO user_challenge (user_id, promise_id, start_date, days_number)
-VALUES (2, 3, '2019-02-15 10:32:02', 30);
+VALUES (2, 3, '2022-08-22 02:32:02', 30);
 INSERT INTO user_challenge (user_id, promise_id, start_date, days_number)
-VALUES (2, 4, '2019-02-15 10:54:02', 60);
+VALUES (2, 4, '2022-08-22 16:54:02', 60);
 INSERT INTO user_challenge (user_id, promise_id, start_date, days_number)
-VALUES (2, 3, '2019-02-15 10:43:02', 30);
+VALUES (2, 3, '2022-08-22 01:43:02', 30);
 INSERT INTO user_challenge (user_id, promise_id, start_date, days_number)
-VALUES (2, 2, '2019-02-15 10:55:02', 20);
+VALUES (2, 2, '2022-08-22 17:55:02', 20);
 INSERT INTO user_challenge (user_id, promise_id, start_date, days_number)
-VALUES (1, 3, '2019-02-15 10:32:02', 30);
+VALUES (1, 3, '2022-08-22 19:32:02', 30);
 INSERT INTO user_challenge (user_id, promise_id, start_date, days_number)
-VALUES (3, 4, '2019-02-15 10:54:02', 60);
+VALUES (3, 4, '2022-08-22 22:54:02', 60);
 INSERT INTO user_challenge (user_id, promise_id, start_date, days_number)
-VALUES (3, 3, '2019-02-15 10:43:02', 30);
+VALUES (3, 3, '2022-08-22 23:43:02', 30);
 INSERT INTO user_challenge (user_id, promise_id, start_date, days_number)
-VALUES (4, 2, '2019-02-15 10:55:02', 20);
+VALUES (4, 2, '2022-08-22 09:55:02', 20);
 
 INSERT INTO reason (user_challenge_id, description)
-VALUES (1, 'I want to learn java & spring');
+VALUES (1,
+        'I want to learn java & spring. I want to become a full stack programmer, so I need to put in a lot of effort.');
 INSERT INTO reason (user_challenge_id, description)
-VALUES (2, 'I have to lose 20 kg');
+VALUES (2,
+        'I have to lose 20 kg. I will run 10km every day, do 100 push-ups and eat 5 small meals a day. I want to become healthy, I''m tired of lying on the couch.');
 INSERT INTO reason (user_challenge_id, description)
-VALUES (3, 'I want to read a book about front-end 50 pages a day');
+VALUES (3, 'I want to read a book about front-end 50 pages a day.
+I have an interview soon and I want to show myself well.');
 INSERT INTO reason (user_challenge_id, description)
-VALUES (4, 'learn how to swim');
+VALUES (4, '
+Learning to swim has always been my dream. Therefore, I will go to the pool 4 times a week.');
 INSERT INTO reason (user_challenge_id, description)
-VALUES (5, 'I want to learn js');
+VALUES (5, 'I want to learn js. This may come in handy in my professional life.');
 INSERT INTO reason (user_challenge_id, description)
-VALUES (6, 'I have to lose 99 kg');
+VALUES (6,
+        'I have to lose 99 kg. The doctor said that with my obesity, people do not live long, so I refuse burgers and fatty foods.');
 INSERT INTO reason (user_challenge_id, description)
-VALUES (7, 'I want to paint something');
+VALUES (7, 'I want to paint something.
+Mom has a birthday soon, I want to give her a nice gift.');
 INSERT INTO reason (user_challenge_id, description)
-VALUES (8, 'learn how to run');
+VALUES (8,
+        'Learn how to run. I spent a long time in the hospital and lost my athletic form. I promise myself to run every day');

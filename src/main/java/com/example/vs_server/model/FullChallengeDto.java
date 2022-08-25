@@ -19,7 +19,7 @@ public class FullChallengeDto {
     private Long userId;
     @JsonProperty("promise_id")
     private Long promiseId;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     @JsonProperty("start_date")
     private Timestamp startDate;
     @JsonProperty("days_number")

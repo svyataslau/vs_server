@@ -1,10 +1,12 @@
 package com.example.vs_server.service;
 
+import com.example.vs_server.converter.FullChallengeConverter;
 import com.example.vs_server.converter.UserConverter;
 import com.example.vs_server.exception.CustomServerException;
 import com.example.vs_server.exception.UnauthorizedException;
 import com.example.vs_server.model.User;
 import com.example.vs_server.model.UserDto;
+import com.example.vs_server.repository.FullChallengeDao;
 import com.example.vs_server.repository.UserDao;
 import com.example.vs_server.validator.UserValidator;
 import org.springframework.dao.DuplicateKeyException;
@@ -17,26 +19,31 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
+    private final FullChallengeDao fullChallengeDao;
     private final UserConverter userConverter;
     private final UserValidator userValidator;
+    private final FullChallengeConverter fullChallengeConverter;
 
-    public UserServiceImpl(UserDao userDao, UserConverter userConverter, UserValidator userValidator) {
+    public UserServiceImpl(UserDao userDao, UserConverter userConverter, UserValidator userValidator, FullChallengeDao fullChallengeDao, FullChallengeConverter fullChallengeConverter) {
         this.userDao = userDao;
         this.userConverter = userConverter;
         this.userValidator = userValidator;
+        this.fullChallengeDao = fullChallengeDao;
+        this.fullChallengeConverter = fullChallengeConverter;
     }
 
     public User login(User user) {
         if (userValidator.validateEmailPassword(user)) {
             try {
                 UserDto userDto = userConverter.convertToDto(user);
-                return userConverter.convertToEntity(userDao.getUser(userDto));
+                User _user = userConverter.convertToEntity(userDao.getUser(userDto));
+                _user.setChallenges(fullChallengeConverter.convertToEntities(fullChallengeDao.findAllById(_user.getId())));
+                return _user;
             } catch (EmptyResultDataAccessException e) {
                 throw new UnauthorizedException("There is no user with such email & password in the database. Please check the correctness of the entered data...");
             } catch (NullPointerException e) {
                 throw new UnauthorizedException("There is no user with such email & password in the database. Please check the correctness of the entered data...");
             } catch (Exception e) {
-                System.out.println(e);
                 throw new CustomServerException();
             }
         }
@@ -47,7 +54,9 @@ public class UserServiceImpl implements UserService {
         if (userValidator.validate(user)) {
             try {
                 UserDto userDto = userConverter.convertToDto(user);
-                return userConverter.convertToEntity(userDao.save(userDto));
+                User _user = userConverter.convertToEntity(userDao.save(userDto));
+                _user.setChallenges(fullChallengeConverter.convertToEntities(fullChallengeDao.findAllById(_user.getId())));
+                return _user;
             } catch (DuplicateKeyException e) {
                 throw new UnauthorizedException("This user already registered. Try to login...");
             } catch (Exception e) {
@@ -67,7 +76,10 @@ public class UserServiceImpl implements UserService {
 
     public User getUserById(long id) {
         try {
-            return userConverter.convertToEntity(userDao.findById(id));
+            User user = userConverter.convertToEntity(userDao.findById(id));
+            user.setChallenges(fullChallengeConverter.convertToEntities(fullChallengeDao.findAllById(id)));
+            user.setChallenges(fullChallengeConverter.convertToEntities(fullChallengeDao.findAllById(user.getId())));
+            return user;
         } catch (Exception e) {
             throw new CustomServerException();
         }
