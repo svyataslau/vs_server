@@ -2,10 +2,12 @@ package com.example.vs_server.model;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
+@NoArgsConstructor
 @Getter
 @Setter
 public class User {
@@ -19,9 +21,6 @@ public class User {
     @ApiModelProperty(notes = "Password of the User", name = "password", required = true, value = "somePass32")
     private String password;
     private List<FullChallenge> challenges;
-
-    public User() {
-    }
 
     public User(String nickname, String email, String password) {
         this.nickname = nickname;
