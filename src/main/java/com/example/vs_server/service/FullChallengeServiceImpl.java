@@ -31,14 +31,6 @@ public class FullChallengeServiceImpl implements CommonService<FullChallenge> {
         }
     }
 
-    public List<FullChallenge> getAllById(long id) {
-        try {
-            return fullChallengeConverter.convertToEntities(fullChallengeDao.findAllById(id));
-        } catch (Exception e) {
-            throw new CustomServerException();
-        }
-    }
-
     public int create(FullChallenge fullChallenge) {
         if (fullChallengeValidator.validate(fullChallenge)) {
             try {

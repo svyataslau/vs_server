@@ -28,7 +28,8 @@ public class FullChallengeDaoImpl implements FullChallengeDao {
         return jdbcTemplate.query("SELECT user_challenge.id, user_challenge.user_id, user_challenge.promise_id, user_challenge.start_date, user_challenge.days_number, promise.title, reason.description from user_challenge INNER JOIN promise ON promise.id=user_challenge.promise_id JOIN reason ON reason.user_challenge_id=user_challenge.id ORDER BY user_challenge.id", BeanPropertyRowMapper.newInstance(FullChallengeDto.class));
     }
 
-    public List<FullChallengeDto> findAllById(long id) {
+    @Override
+    public List<FullChallengeDto> findAllByUserId(long id) {
         return jdbcTemplate.query("SELECT user_challenge.id, user_challenge.user_id, user_challenge.promise_id, user_challenge.start_date, user_challenge.days_number, promise.title, reason.description from user_challenge INNER JOIN promise ON promise.id=user_challenge.promise_id JOIN reason ON reason.user_challenge_id=user_challenge.id WHERE user_id = ? ORDER BY user_challenge.id", BeanPropertyRowMapper.newInstance(FullChallengeDto.class), id);
     }
 
@@ -82,4 +83,5 @@ public class FullChallengeDaoImpl implements FullChallengeDao {
     public int deleteById(long id) {
         return jdbcTemplate.update("DELETE FROM user_challenge WHERE id=?", id);
     }
+
 }

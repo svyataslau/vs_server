@@ -28,11 +28,6 @@ public class FullChallengeControllerImpl implements FullChallengeController {
     }
 
     @Override
-    public ResponseEntity<Object> getAllFullChallengesById(@PathVariable("id") long id) {
-        return responseFactory.generateResponse("Full challenges of user received.", HttpStatus.OK, fullChallengeService.getAllById(id));
-    }
-
-    @Override
     public ResponseEntity<Object> save(@RequestBody FullChallenge fullChallenge) {
         return responseFactory.generateResponse("Full challenge created.", HttpStatus.OK, fullChallengeService.create(fullChallenge));
     }

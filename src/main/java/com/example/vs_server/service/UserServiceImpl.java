@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
             try {
                 UserDto userDto = userConverter.convertToDto(user);
                 User _user = userConverter.convertToEntity(userDao.getUser(userDto));
-                _user.setChallenges(fullChallengeConverter.convertToEntities(fullChallengeDao.findAllById(_user.getId())));
+                _user.setChallenges(fullChallengeConverter.convertToEntities(fullChallengeDao.findAllByUserId(_user.getId())));
                 return _user;
             } catch (EmptyResultDataAccessException e) {
                 throw new UnauthorizedException("There is no user with such email & password in the database. Please check the correctness of the entered data...");
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
             try {
                 UserDto userDto = userConverter.convertToDto(user);
                 User _user = userConverter.convertToEntity(userDao.save(userDto));
-                _user.setChallenges(fullChallengeConverter.convertToEntities(fullChallengeDao.findAllById(_user.getId())));
+                _user.setChallenges(fullChallengeConverter.convertToEntities(fullChallengeDao.findAllByUserId(_user.getId())));
                 return _user;
             } catch (DuplicateKeyException e) {
                 throw new UnauthorizedException("This user already registered. Try to login...");
@@ -77,8 +77,8 @@ public class UserServiceImpl implements UserService {
     public User getUserById(long id) {
         try {
             User user = userConverter.convertToEntity(userDao.findById(id));
-            user.setChallenges(fullChallengeConverter.convertToEntities(fullChallengeDao.findAllById(id)));
-            user.setChallenges(fullChallengeConverter.convertToEntities(fullChallengeDao.findAllById(user.getId())));
+            user.setChallenges(fullChallengeConverter.convertToEntities(fullChallengeDao.findAllByUserId(id)));
+            user.setChallenges(fullChallengeConverter.convertToEntities(fullChallengeDao.findAllByUserId(user.getId())));
             return user;
         } catch (Exception e) {
             throw new CustomServerException();

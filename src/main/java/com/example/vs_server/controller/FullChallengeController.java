@@ -8,9 +8,6 @@ public interface FullChallengeController {
     @GetMapping("/full_challenges")
     ResponseEntity<Object> getAllFullChallenges();
 
-    @GetMapping("/full_challenges/{id}")
-    ResponseEntity<Object> getAllFullChallengesById(@PathVariable("id") long id);
-
     @PostMapping("/full_challenges")
     ResponseEntity<Object> save(@RequestBody FullChallenge fullChallenge);
 
