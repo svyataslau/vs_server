@@ -16,11 +16,7 @@ public class FullChallengeConverter extends Converter<FullChallengeDto, FullChal
     }
 
     public static FullChallengeDto convertToDto(FullChallenge fullChallenge) {
-        if (fullChallenge.getId() != null) {
-            return new FullChallengeDto(fullChallenge.getId(), fullChallenge.getUserId(), fullChallenge.getPromiseId(), fullChallenge.getStartDate(), fullChallenge.getDaysNumber(), fullChallenge.getTitle(), fullChallenge.getDescription());
-        }
-        return new FullChallengeDto(fullChallenge.getUserId(), fullChallenge.getPromiseId(), fullChallenge.getStartDate(), fullChallenge.getDaysNumber(), fullChallenge.getTitle(), fullChallenge.getDescription());
-
+        return new FullChallengeDto(fullChallenge.getId(), fullChallenge.getUserId(), fullChallenge.getPromiseId(), fullChallenge.getStartDate(), fullChallenge.getDaysNumber(), fullChallenge.getTitle(), fullChallenge.getDescription());
     }
 
 }
