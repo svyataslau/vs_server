@@ -9,15 +9,15 @@ public class Converter<T, U> {
 
     private final Function<T, U> convertToEntity;
 
-    public Converter(final Function<T, U> convertToEntity) {
+    public Converter(Function<T, U> convertToEntity) {
         this.convertToEntity = convertToEntity;
     }
 
-    public final U convertFromDto(final T dto) {
+    public U convertFromDto(T dto) {
         return convertToEntity.apply(dto);
     }
 
-    public final List<U> convertToEntities(final Collection<T> dtos) {
+    public List<U> convertToEntities(Collection<T> dtos) {
         return dtos.stream().map(this::convertFromDto).collect(Collectors.toList());
     }
 }
