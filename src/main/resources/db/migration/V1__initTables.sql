@@ -46,26 +46,26 @@ VALUES ('Stop addiction');
 INSERT INTO promise (title)
 VALUES ('Get a new ability');
 INSERT INTO promise (title)
-VALUES ('Learn something new');
+VALUES ('Learn new technology');
 INSERT INTO promise (title)
 VALUES ('Lose weight');
 
 INSERT INTO user_challenge (user_id, promise_id, start_date, days_number)
-VALUES (2, 3, '2022-08-22 02:32:02', 30);
+VALUES (2, 3, '2022-08-25T21:08:38.661Z', 1);
 INSERT INTO user_challenge (user_id, promise_id, start_date, days_number)
-VALUES (2, 4, '2022-08-22 16:54:02', 60);
+VALUES (2, 4, '2022-08-25T21:08:57.406Z', 3);
 INSERT INTO user_challenge (user_id, promise_id, start_date, days_number)
-VALUES (2, 3, '2022-08-22 01:43:02', 30);
+VALUES (2, 3, '2022-08-25T21:09:15.610Z', 4);
 INSERT INTO user_challenge (user_id, promise_id, start_date, days_number)
-VALUES (2, 2, '2022-08-22 17:55:02', 20);
+VALUES (2, 2, '2022-08-25T21:09:30.855Z', 3);
 INSERT INTO user_challenge (user_id, promise_id, start_date, days_number)
-VALUES (1, 3, '2022-08-22 19:32:02', 30);
+VALUES (1, 3, '2022-08-25T21:09:48.235Z', 3);
 INSERT INTO user_challenge (user_id, promise_id, start_date, days_number)
-VALUES (3, 4, '2022-08-22 22:54:02', 60);
+VALUES (3, 4, '2022-08-25T21:10:03.993Z', 4);
 INSERT INTO user_challenge (user_id, promise_id, start_date, days_number)
-VALUES (3, 3, '2022-08-22 23:43:02', 30);
+VALUES (3, 3, '2022-08-25T21:10:20.802Z', 7);
 INSERT INTO user_challenge (user_id, promise_id, start_date, days_number)
-VALUES (4, 2, '2022-08-22 09:55:02', 20);
+VALUES (4, 2, '2022-08-25T21:10:35.677Z', 5);
 
 INSERT INTO reason (user_challenge_id, description)
 VALUES (1,
