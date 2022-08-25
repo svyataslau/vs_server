@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.regex.Pattern;
 
 @Component
-public class UserValidatorImpl implements Validator<User>, UserValidator {
+public class UserValidatorImpl implements UserValidator {
 
     @Override
     public boolean isValidEmail(String email) {
