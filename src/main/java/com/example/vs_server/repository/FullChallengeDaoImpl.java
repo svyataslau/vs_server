@@ -3,6 +3,7 @@ package com.example.vs_server.repository;
 import com.example.vs_server.model.FullChallengeDto;
 import com.example.vs_server.model.PromiseDto;
 import com.example.vs_server.model.ReasonDto;
+import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -16,13 +17,10 @@ import java.util.Arrays;
 import java.util.List;
 
 @Repository
+@AllArgsConstructor
 public class FullChallengeDaoImpl implements FullChallengeDao {
 
     public final JdbcTemplate jdbcTemplate;
-
-    public FullChallengeDaoImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     public List<FullChallengeDto> findAll() {
         return jdbcTemplate.query("SELECT user_challenge.id, user_challenge.user_id, user_challenge.promise_id, user_challenge.start_date, user_challenge.days_number, promise.title, reason.description from user_challenge INNER JOIN promise ON promise.id=user_challenge.promise_id JOIN reason ON reason.user_challenge_id=user_challenge.id ORDER BY user_challenge.id", BeanPropertyRowMapper.newInstance(FullChallengeDto.class));
@@ -35,11 +33,10 @@ public class FullChallengeDaoImpl implements FullChallengeDao {
 
     @Override
     public int save(FullChallengeDto fullChallengeDto) {
-
         final String SQL_INSERT_QUERY = "INSERT INTO user_challenge (user_id, promise_id, start_date, days_number) VALUES(?,?,?,?)";
 
         PreparedStatementCreatorFactory pscf = new PreparedStatementCreatorFactory(
-                SQL_INSERT_QUERY, Types.NUMERIC, Types.NUMERIC, Types.TIMESTAMP, Types.NUMERIC
+                SQL_INSERT_QUERY, Types.NUMERIC, Types.NUMERIC, Types.TIMESTAMP_WITH_TIMEZONE, Types.NUMERIC
         );
         pscf.setReturnGeneratedKeys(true);
         pscf.setGeneratedKeysColumnNames("id");
@@ -67,8 +64,17 @@ public class FullChallengeDaoImpl implements FullChallengeDao {
     @Override
     public FullChallengeDto updateById(long id, FullChallengeDto fullChallengeDto) {
 
-        jdbcTemplate.update("UPDATE user_challenge SET user_id=?, promise_id=?, start_date=?, days_number=? WHERE id=?",
-                new Object[]{fullChallengeDto.getUserId(), fullChallengeDto.getPromiseId(), fullChallengeDto.getStartDate(), fullChallengeDto.getDaysNumber(), fullChallengeDto.getId()});
+        final String SQL_INSERT_QUERY = "UPDATE user_challenge SET user_id=?, promise_id=?, start_date=?, days_number=? WHERE id=?";
+
+        PreparedStatementCreatorFactory pscf = new PreparedStatementCreatorFactory(
+                SQL_INSERT_QUERY, Types.NUMERIC, Types.NUMERIC, Types.TIMESTAMP_WITH_TIMEZONE, Types.NUMERIC, Types.NUMERIC
+        );
+
+        PreparedStatementCreator psc = pscf.newPreparedStatementCreator(
+                Arrays.asList(fullChallengeDto.getUserId(), fullChallengeDto.getPromiseId(), fullChallengeDto.getStartDate(), fullChallengeDto.getDaysNumber(), fullChallengeDto.getId())
+        );
+
+        jdbcTemplate.update(psc);
 
         ReasonDto reasonDto = jdbcTemplate.queryForObject("SELECT * from reason WHERE user_challenge_id=?",
                 BeanPropertyRowMapper.newInstance(ReasonDto.class), id);

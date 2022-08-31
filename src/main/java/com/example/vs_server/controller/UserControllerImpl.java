@@ -5,6 +5,7 @@ import com.example.vs_server.response.ResponseFactory;
 import com.example.vs_server.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,15 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Api(tags = "User", description = "Endpoints for user entity", produces = "application/json")
 @RestController
+@AllArgsConstructor
 public class UserControllerImpl implements UserController {
 
     private final UserService userService;
     private final ResponseFactory responseFactory;
-
-    public UserControllerImpl(UserService userService, ResponseFactory responseFactory) {
-        this.userService = userService;
-        this.responseFactory = responseFactory;
-    }
 
     @ApiOperation(
             value = "Login to user profile",

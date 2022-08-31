@@ -1,20 +1,17 @@
 package com.example.vs_server.exception;
 
 import com.example.vs_server.response.ResponseFactory;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
+@AllArgsConstructor
 public class GlobalExceptionHandler {
 
     private final ResponseFactory responseFactory;
-
-    public GlobalExceptionHandler(ResponseFactory response) {
-        this.responseFactory = response;
-    }
-
 
     @ExceptionHandler(InvalidFieldException.class)
     public ResponseEntity<String> handleInvalidFieldException(InvalidFieldException exception) {

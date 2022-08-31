@@ -5,15 +5,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 public interface FullChallengeController {
-    @GetMapping("/full_challenges")
+    @GetMapping("/challenges")
     ResponseEntity<Object> getAllFullChallenges();
 
-    @PostMapping("/full_challenges")
+    @PostMapping("/challenges")
     ResponseEntity<Object> save(@RequestBody FullChallenge fullChallenge);
 
-    @PutMapping("/full_challenges/{id}")
+    @PutMapping("/challenges/{id}")
     ResponseEntity<Object> update(@PathVariable("id") long id, @RequestBody FullChallenge fullChallenge);
 
-    @DeleteMapping("/full_challenges/{id}")
+    @DeleteMapping("/challenges/{id}")
     ResponseEntity<Object> delete(@PathVariable("id") long id);
 }

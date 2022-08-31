@@ -9,6 +9,7 @@ import com.example.vs_server.model.UserDto;
 import com.example.vs_server.repository.FullChallengeDao;
 import com.example.vs_server.repository.UserDao;
 import com.example.vs_server.validator.UserValidator;
+import lombok.AllArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
@@ -23,14 +25,6 @@ public class UserServiceImpl implements UserService {
     private final UserConverter userConverter;
     private final UserValidator userValidator;
     private final FullChallengeConverter fullChallengeConverter;
-
-    public UserServiceImpl(UserDao userDao, UserConverter userConverter, UserValidator userValidator, FullChallengeDao fullChallengeDao, FullChallengeConverter fullChallengeConverter) {
-        this.userDao = userDao;
-        this.userConverter = userConverter;
-        this.userValidator = userValidator;
-        this.fullChallengeDao = fullChallengeDao;
-        this.fullChallengeConverter = fullChallengeConverter;
-    }
 
     public User login(User user) {
         if (userValidator.validateEmailPassword(user)) {

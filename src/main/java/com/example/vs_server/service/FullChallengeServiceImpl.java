@@ -6,22 +6,18 @@ import com.example.vs_server.model.FullChallenge;
 import com.example.vs_server.model.FullChallengeDto;
 import com.example.vs_server.repository.FullChallengeDao;
 import com.example.vs_server.validator.FullChallengeValidator;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class FullChallengeServiceImpl implements CommonService<FullChallenge> {
 
     private final FullChallengeDao fullChallengeDao;
     private final FullChallengeConverter fullChallengeConverter;
     private final FullChallengeValidator fullChallengeValidator;
-
-    public FullChallengeServiceImpl(FullChallengeDao fullChallengeDao, FullChallengeConverter fullChallengeConverter, FullChallengeValidator fullChallengeValidator) {
-        this.fullChallengeDao = fullChallengeDao;
-        this.fullChallengeConverter = fullChallengeConverter;
-        this.fullChallengeValidator = fullChallengeValidator;
-    }
 
     public List<FullChallenge> getAll() {
         try {

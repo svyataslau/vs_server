@@ -3,6 +3,7 @@ package com.example.vs_server.controller;
 import com.example.vs_server.model.FullChallenge;
 import com.example.vs_server.response.ResponseFactory;
 import com.example.vs_server.service.CommonService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,15 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
+@AllArgsConstructor
 public class FullChallengeControllerImpl implements FullChallengeController {
 
     private final CommonService fullChallengeService;
     private final ResponseFactory responseFactory;
-
-    public FullChallengeControllerImpl(CommonService fullChallengeService, ResponseFactory responseFactory) {
-        this.fullChallengeService = fullChallengeService;
-        this.responseFactory = responseFactory;
-    }
 
     @Override
     public ResponseEntity<Object> getAllFullChallenges() {
