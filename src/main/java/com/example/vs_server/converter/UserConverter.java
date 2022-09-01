@@ -22,6 +22,10 @@ public class UserConverter implements Converter<UserDto, User> {
 
     @Override
     public UserDto convertToDto(User user) {
-        return new UserDto(user.getNickname(), user.getEmail(), user.getPassword());
+        UserDto userDto = new UserDto();
+        userDto.setNickname(user.getNickname());
+        userDto.setEmail(user.getEmail());
+        userDto.setPassword(user.getPassword());
+        return userDto;
     }
 }
