@@ -1,15 +1,13 @@
 package com.example.vs_server.model;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.List;
 
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class User {
 
     @ApiModelProperty(notes = "Database id of the User", name = "id")

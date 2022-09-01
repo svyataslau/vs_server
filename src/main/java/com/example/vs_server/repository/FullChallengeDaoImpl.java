@@ -23,12 +23,12 @@ public class FullChallengeDaoImpl implements FullChallengeDao {
     public final JdbcTemplate jdbcTemplate;
 
     public List<FullChallengeDto> findAll() {
-        return jdbcTemplate.query("SELECT user_challenge.id, user_challenge.user_id, user_challenge.promise_id, user_challenge.start_date, user_challenge.days_number, promise.title, reason.description from user_challenge INNER JOIN promise ON promise.id=user_challenge.promise_id JOIN reason ON reason.user_challenge_id=user_challenge.id ORDER BY user_challenge.id", BeanPropertyRowMapper.newInstance(FullChallengeDto.class));
+        return jdbcTemplate.query("SELECT *, promise.title, reason.description from user_challenge INNER JOIN promise ON promise.id=user_challenge.promise_id JOIN reason ON reason.user_challenge_id=user_challenge.id ORDER BY user_challenge.id", BeanPropertyRowMapper.newInstance(FullChallengeDto.class));
     }
 
     @Override
     public List<FullChallengeDto> findAllByUserId(long id) {
-        return jdbcTemplate.query("SELECT user_challenge.id, user_challenge.user_id, user_challenge.promise_id, user_challenge.start_date, user_challenge.days_number, promise.title, reason.description from user_challenge INNER JOIN promise ON promise.id=user_challenge.promise_id JOIN reason ON reason.user_challenge_id=user_challenge.id WHERE user_id = ? ORDER BY user_challenge.id", BeanPropertyRowMapper.newInstance(FullChallengeDto.class), id);
+        return jdbcTemplate.query("SELECT *, promise.title, reason.description from user_challenge INNER JOIN promise ON promise.id=user_challenge.promise_id JOIN reason ON reason.user_challenge_id=user_challenge.id WHERE user_id = ? ORDER BY user_challenge.id", BeanPropertyRowMapper.newInstance(FullChallengeDto.class), id);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class FullChallengeDaoImpl implements FullChallengeDao {
         jdbcTemplate.update("UPDATE reason SET user_challenge_id = ?, description = ? WHERE id = ?",
                 new Object[]{fullChallengeDto.getId(), fullChallengeDto.getDescription(), reasonDto.getId()});
 
-        return jdbcTemplate.queryForObject("SELECT user_challenge.id, user_challenge.user_id, user_challenge.promise_id, user_challenge.start_date, user_challenge.days_number, promise.title, reason.description from user_challenge INNER JOIN promise ON promise.id=user_challenge.promise_id JOIN reason ON reason.user_challenge_id=user_challenge.id WHERE user_challenge.id = ?", BeanPropertyRowMapper.newInstance(FullChallengeDto.class), id);
+        return jdbcTemplate.queryForObject("SELECT *, promise.title, reason.description from user_challenge INNER JOIN promise ON promise.id=user_challenge.promise_id JOIN reason ON reason.user_challenge_id=user_challenge.id WHERE user_challenge.id = ?", BeanPropertyRowMapper.newInstance(FullChallengeDto.class), id);
     }
 
     @Override
