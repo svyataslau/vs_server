@@ -4,18 +4,24 @@ import com.example.vs_server.model.Promise;
 import com.example.vs_server.model.PromiseDto;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
-public class PromiseConverter extends Converter<PromiseDto, Promise> {
-
-    public PromiseConverter() {
-        super(PromiseConverter::convertToEntity);
+public class PromiseConverter implements Converter<PromiseDto, Promise> {
+    @Override
+    public List<Promise> convertToEntities(Collection<PromiseDto> promiseDtos) {
+        return promiseDtos.stream().map(this::convertToEntity).collect(Collectors.toList());
     }
 
-    public static Promise convertToEntity(PromiseDto dto) {
-        return new Promise(dto.getId(), dto.getTitle());
+    @Override
+    public Promise convertToEntity(PromiseDto promiseDto) {
+        return new Promise(promiseDto.getId(), promiseDto.getTitle());
     }
 
-    public static PromiseDto convertToDto(Promise promise) {
+    @Override
+    public PromiseDto convertToDto(Promise promise) {
         return new PromiseDto(promise.getTitle());
     }
 

@@ -4,18 +4,24 @@ import com.example.vs_server.model.FullChallenge;
 import com.example.vs_server.model.FullChallengeDto;
 import org.springframework.stereotype.Component;
 
-@Component
-public class FullChallengeConverter extends Converter<FullChallengeDto, FullChallenge> {
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
-    public FullChallengeConverter() {
-        super(FullChallengeConverter::convertToEntity);
+@Component
+public class FullChallengeConverter implements Converter<FullChallengeDto, FullChallenge> {
+    @Override
+    public List<FullChallenge> convertToEntities(Collection<FullChallengeDto> fullChallengeDtos) {
+        return fullChallengeDtos.stream().map(this::convertToEntity).collect(Collectors.toList());
     }
 
-    public static FullChallenge convertToEntity(FullChallengeDto fullChallengeDto) {
+    @Override
+    public FullChallenge convertToEntity(FullChallengeDto fullChallengeDto) {
         return new FullChallenge(fullChallengeDto.getId(), fullChallengeDto.getUserId(), fullChallengeDto.getPromiseId(), fullChallengeDto.getStartDate(), fullChallengeDto.getDaysNumber(), fullChallengeDto.getTitle(), fullChallengeDto.getDescription());
     }
 
-    public static FullChallengeDto convertToDto(FullChallenge fullChallenge) {
+    @Override
+    public FullChallengeDto convertToDto(FullChallenge fullChallenge) {
         return new FullChallengeDto(fullChallenge.getId(), fullChallenge.getUserId(), fullChallenge.getPromiseId(), fullChallenge.getStartDate(), fullChallenge.getDaysNumber(), fullChallenge.getTitle(), fullChallenge.getDescription());
     }
 
