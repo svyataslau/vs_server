@@ -5,12 +5,27 @@ import com.example.vs_server.model.FullChallenge;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 @Component
 public class FullChallengeValidatorImpl implements FullChallengeValidator {
 
+
+    @Override
+    public boolean isValidTitle(String title) {
+        if (title != null) {
+            return Pattern.compile("^[\\w\\d\\s](?:[-_\\.]?[\\w\\d\\s])*$")
+                    .matcher(title)
+                    .matches();
+        }
+        return false;
+    }
+
     @Override
     public boolean validate(FullChallenge fullChallenge) {
+        if (!isValidTitle(fullChallenge.getTitle())) {
+            throw new InvalidFieldException("Title can contain latin letters, numbers, space -_.");
+        }
         if (fullChallenge.getDescription().length() < 0 || fullChallenge.getDescription().length() > 128) {
             throw new InvalidFieldException("Description must not be empty and be longer than 128 characters!");
         }

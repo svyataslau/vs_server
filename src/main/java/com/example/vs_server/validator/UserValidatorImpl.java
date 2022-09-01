@@ -12,7 +12,7 @@ public class UserValidatorImpl implements UserValidator {
     @Override
     public boolean isValidEmail(String email) {
         if (email != null) {
-            return Pattern.compile("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")
+            return Pattern.compile("^([\\w\\d_\\-\\.]+)@([\\w\\d_\\-\\.]+)\\.([\\w]{2,5})$")
                     .matcher(email)
                     .matches();
         }
@@ -22,7 +22,7 @@ public class UserValidatorImpl implements UserValidator {
     @Override
     public boolean isValidPassword(String password) {
         if (password != null) {
-            return Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$")
+            return Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[\\w\\d]{8,}$")
                     .matcher(password)
                     .matches();
         }
@@ -32,7 +32,7 @@ public class UserValidatorImpl implements UserValidator {
     @Override
     public boolean isValidNickname(String nickname) {
         if (nickname != null) {
-            return Pattern.compile("^[a-zA-Z0-9](?:[-_\\.]?[a-zA-Z0-9])*$")
+            return Pattern.compile("^[\\w\\d](?:[-_\\.]?[\\w\\d])*$")
                     .matcher(nickname)
                     .matches();
         }
