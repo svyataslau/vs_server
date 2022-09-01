@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class FullChallengeControllerImpl implements FullChallengeController {
 
-    private final CommonService fullChallengeService;
+    private final CommonService<FullChallenge> fullChallengeService;
     private final ResponseFactory responseFactory;
 
     @Override
