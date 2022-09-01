@@ -22,7 +22,15 @@ public class FullChallengeConverter implements Converter<FullChallengeDto, FullC
 
     @Override
     public FullChallengeDto convertToDto(FullChallenge fullChallenge) {
-        return new FullChallengeDto(fullChallenge.getId(), fullChallenge.getUserId(), fullChallenge.getPromiseId(), fullChallenge.getStartDate(), fullChallenge.getDaysNumber(), fullChallenge.getTitle(), fullChallenge.getDescription());
+        FullChallengeDto fullChallengeDto = new FullChallengeDto();
+        fullChallengeDto.setId(fullChallenge.getId());
+        fullChallengeDto.setUserId(fullChallenge.getUserId());
+        fullChallengeDto.setPromiseId(fullChallenge.getPromiseId());
+        fullChallengeDto.setStartDate(fullChallenge.getStartDate());
+        fullChallengeDto.setDaysNumber(fullChallenge.getDaysNumber());
+        fullChallengeDto.setTitle(fullChallenge.getTitle());
+        fullChallengeDto.setDescription(fullChallenge.getDescription());
+        return fullChallengeDto;
     }
 
 }
