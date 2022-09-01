@@ -2,9 +2,20 @@ package com.example.vs_server.controller;
 
 import com.example.vs_server.model.User;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 public interface UserController {
-    @PostMapping("/login")
+    @PostMapping("/users/login")
     ResponseEntity<Object> login(User user);
+
+    @PostMapping("/users")
+    ResponseEntity<Object> register(User user);
+
+    @GetMapping("/users")
+    ResponseEntity<Object> getAllUsers();
+
+    @GetMapping("/users/{id}")
+    ResponseEntity<Object> getUserById(@PathVariable("id") long id);
 }
