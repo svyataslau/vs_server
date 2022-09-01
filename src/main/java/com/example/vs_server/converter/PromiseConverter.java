@@ -22,7 +22,9 @@ public class PromiseConverter implements Converter<PromiseDto, Promise> {
 
     @Override
     public PromiseDto convertToDto(Promise promise) {
-        return new PromiseDto(promise.getTitle());
+        PromiseDto promiseDto = new PromiseDto();
+        promiseDto.setTitle(promise.getTitle());
+        return promiseDto;
     }
 
 }
