@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService {
     private final UserValidator userValidator;
     private final FullChallengeConverter fullChallengeConverter;
 
+    @Override
     public User login(User user) {
         if (userValidator.validateEmailPassword(user)) {
             try {
@@ -44,6 +45,7 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
     public User create(User user) {
         if (userValidator.validate(user)) {
             try {
@@ -60,6 +62,7 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
     public List<User> getAllUsers() {
         try {
             return userConverter.convertToEntities(userDao.findAll());
@@ -68,6 +71,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
     public User getUserById(long id) {
         try {
             User user = userConverter.convertToEntity(userDao.findById(id));

@@ -19,6 +19,7 @@ public class PromiseServiceImpl implements CommonService<Promise> {
     private final PromiseConverter promiseConverter;
     private final PromiseValidator promiseValidator;
 
+    @Override
     public List<Promise> getAll() {
         try {
             return promiseConverter.convertToEntities(promiseDao.findAll());
@@ -27,6 +28,7 @@ public class PromiseServiceImpl implements CommonService<Promise> {
         }
     }
 
+    @Override
     public int create(Promise promise) {
         if (promiseValidator.validate(promise)) {
             try {

@@ -19,6 +19,7 @@ public class FullChallengeServiceImpl implements CommonService<FullChallenge> {
     private final FullChallengeConverter fullChallengeConverter;
     private final FullChallengeValidator fullChallengeValidator;
 
+    @Override
     public List<FullChallenge> getAll() {
         try {
             return fullChallengeConverter.convertToEntities(fullChallengeDao.findAll());
@@ -27,6 +28,7 @@ public class FullChallengeServiceImpl implements CommonService<FullChallenge> {
         }
     }
 
+    @Override
     public int create(FullChallenge fullChallenge) {
         if (fullChallengeValidator.validate(fullChallenge)) {
             try {
