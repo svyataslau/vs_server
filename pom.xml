@@ -65,11 +65,16 @@
         </dependency>
     </dependencies>
 
+
     <build>
+        <defaultGoal>install</defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.example.vs_server.VsServerApplication</mainClass>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
