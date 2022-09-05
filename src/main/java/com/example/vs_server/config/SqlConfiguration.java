@@ -10,11 +10,11 @@ import javax.sql.DataSource;
 @Configuration
 public class SqlConfiguration {
 
-    @Value("${POSTGRES_USER}")
+    @Value("#{environment.POSTGRES_USER}")
     private String user;
-    @Value("${POSTGRES_PASSWORD}")
+    @Value("#{environment.POSTGRES_PASSWORD}")
     private String password;
-    @Value("${POSTGRES_DB}")
+    @Value("#{environment.POSTGRES_DB}")
     private String db;
 
     @Bean
