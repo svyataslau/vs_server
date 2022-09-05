@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReasonDto {
     private Long id;
-    @JsonProperty("user_challenge_id")
+    @JsonProperty("userChallengeId")
     private Long userChallengeId;
     private String description;
 }
