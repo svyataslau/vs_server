@@ -11,14 +11,14 @@ import java.time.OffsetDateTime;
 @Data
 public class FullChallengeDto {
     private Long id;
-    @JsonProperty("user_id")
+    @JsonProperty("userId")
     private Long userId;
-    @JsonProperty("promise_id")
+    @JsonProperty("promiseId")
     private Long promiseId;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-    @JsonProperty("start_date")
+    @JsonProperty("startDate")
     private OffsetDateTime startDate;
-    @JsonProperty("days_number")
+    @JsonProperty("daysNumber")
     private int daysNumber;
     private String title;
     private String description;
