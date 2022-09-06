@@ -26,8 +26,8 @@ public class FullChallengeValidatorImpl implements FullChallengeValidator {
         if (!isValidTitle(fullChallenge.getTitle())) {
             throw new InvalidFieldException("Title can contain latin letters, numbers, space -_.");
         }
-        if (fullChallenge.getDescription().length() < 0 || fullChallenge.getDescription().length() > 128) {
-            throw new InvalidFieldException("Description must not be empty and be longer than 128 characters!");
+        if (fullChallenge.getDescription().length() < 0 || fullChallenge.getDescription().length() > 2048) {
+            throw new InvalidFieldException("Description must not be empty and be longer than 2048 characters!");
         }
         if (fullChallenge.getTitle().length() < 0 || fullChallenge.getTitle().length() > 128) {
             throw new InvalidFieldException("Title must not be empty and be longer than 128 characters!");
