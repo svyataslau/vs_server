@@ -3,6 +3,7 @@ package com.example.vs_server.service;
 import com.example.vs_server.converter.FullChallengeConverter;
 import com.example.vs_server.converter.UserConverter;
 import com.example.vs_server.exception.CustomServerException;
+import com.example.vs_server.exception.ResourceNotFoundException;
 import com.example.vs_server.exception.UnauthorizedException;
 import com.example.vs_server.model.User;
 import com.example.vs_server.model.UserDto;
@@ -78,6 +79,8 @@ public class UserServiceImpl implements UserService {
             user.setChallenges(fullChallengeConverter.convertToEntities(fullChallengeDao.findAllByUserId(id)));
             user.setChallenges(fullChallengeConverter.convertToEntities(fullChallengeDao.findAllByUserId(user.getId())));
             return user;
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException("User with id " + id + " not found");
         } catch (Exception e) {
             throw new CustomServerException();
         }

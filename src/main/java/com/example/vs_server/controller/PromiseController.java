@@ -1,20 +1,21 @@
 package com.example.vs_server.controller;
 
 import com.example.vs_server.model.Promise;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 public interface PromiseController {
 
     @GetMapping("/promises")
-    ResponseEntity<Object> getAllPromises();
+    List<Promise> getAllPromises();
 
     @PostMapping("/promises")
-    ResponseEntity<Object> save(@RequestBody Promise promise);
+    int save(@RequestBody Promise promise);
 
     @PutMapping("/promises/{id}")
-    ResponseEntity<Object> update(@PathVariable("id") long id, @RequestBody Promise promise);
+    Promise update(@PathVariable("id") long id, @RequestBody Promise promise);
 
     @DeleteMapping("/promises/{id}")
-    ResponseEntity<Object> delete(@PathVariable("id") long id);
+    int delete(@PathVariable("id") long id);
 }
