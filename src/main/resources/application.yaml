@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    username: ${CHALLENGE_DB_USER}
+    password: ${CHALLENGE_DB_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/${CHALLENGE_DB}
+    driver-class-name: org.postgresql.Driver
+  flyway:
+    clean-disabled: false
+    clean-on-validation-error: false
+    locations: classpath:db/migration
+    table: schema_history
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+server:
+  port: 9090
+  servlet.context-path: /api

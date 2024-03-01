@@ -1,16 +1,15 @@
-version: "3.7"
+version: "3.8"
 services:
   challenge-service:
     build:
       context: .
-    image: maven/builder:0.0.1
     container_name: challenge-service
     ports:
       - "8090:8090"
     environment:
-      POSTGRES_USER: challenge_db
-      POSTGRES_PASSWORD: challenge_db
-      POSTGRES_DB: challenge_db
+      POSTGRES_USER: ${CHALLENGE_DB_USER}
+      POSTGRES_PASSWORD: ${CHALLENGE_DB_PASSWORD}
+      POSTGRES_DB: ${CHALLENGE_DB}
     volumes:
       - "./src:/build/src"
       - "./target:/build/target:cached"
@@ -24,9 +23,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: challenge_db
-      POSTGRES_PASSWORD: challenge_db
-      POSTGRES_DB: challenge_db
+      POSTGRES_USER: ${CHALLENGE_DB_USER}
+      POSTGRES_PASSWORD: ${CHALLENGE_DB_PASSWORD}
+      POSTGRES_DB: ${CHALLENGE_DB}
     volumes:
       - challenge-service_data:/var/lib/postgresql/data
 volumes:
