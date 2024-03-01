@@ -1,32 +1,33 @@
 version: "3.7"
 services:
-  spring_dev:
+  challenge-service:
     build:
       context: .
     image: maven/builder:0.0.1
-    container_name: spring_container_api
+    container_name: challenge-service
     ports:
       - "8090:8090"
     environment:
-      - POSTGRES_USER=$POSTGRES_USER
-      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
-      - POSTGRES_DB=$POSTGRES_DB
+      POSTGRES_USER: challenge_db
+      POSTGRES_PASSWORD: challenge_db
+      POSTGRES_DB: challenge_db
     volumes:
       - "./src:/build/src"
       - "./target:/build/target:cached"
     command: "mvn spring-boot:run"
     depends_on:
-      - spring_dev_db
-  spring_dev_db:
-    container_name: spring_dev_db
+      - challenge_db
+  challenge_db:
+    container_name: challenge_db
+    restart: always
     image: "postgres:12"
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_USER=$POSTGRES_USER
-      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
-      - POSTGRES_DB=$POSTGRES_DB
+      POSTGRES_USER: challenge_db
+      POSTGRES_PASSWORD: challenge_db
+      POSTGRES_DB: challenge_db
     volumes:
-      - spring_dev_data:/var/lib/postgresql/data
+      - challenge-service_data:/var/lib/postgresql/data
 volumes:
-  spring_dev_data: { }
+  challenge-service_data: { }
